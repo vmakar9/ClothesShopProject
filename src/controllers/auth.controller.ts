@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {authService} from "../services/auth.service";
-import {IUser} from "../types/user.types";
+
+import {ITokenPair} from "../types/token.types";
 
 class AuthController{
     public async register(req:Request,res:Response,next:NextFunction){
@@ -12,11 +13,11 @@ class AuthController{
         }
 
     }
-    public async login(req:Request,res:Response,next:NextFunction){
+    public async login(req:Request,res:Response,next:NextFunction):Promise<Response<ITokenPair>>{
         try {
-            const {email,password} = req.body;
-            const user = req.res.locals;
-            const tokenPair = await authService.login({email,password},user as IUser);
+            const { email , password } = req.body;
+            const { user } = req.res.locals;
+            const tokenPair = await authService.login({email,password},user);
             return res.status(200).json(tokenPair);
         }catch (e) {
             next(e);

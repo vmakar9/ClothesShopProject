@@ -18,29 +18,33 @@ class AuthService{
         }
     }
 
-    public async login(credentials:ICredentials,user:IUser):Promise<ITokenPair>{
+    public async login(
+        credentials: ICredentials,
+        user: IUser
+    ): Promise<ITokenPair> {
         try {
             const isMatched = await passwordService.compare(
-                credentials.password,user.password
+                credentials.password,
+                user.password
             );
 
-            if(!isMatched){
-                throw new ApiError("Invalid email or password",409);
+            if (!isMatched) {
+                throw new ApiError("Invalid email or password", 409);
             }
 
             const tokenPair = tokenService.generateTokenPair({
-                _id:user._id,
-                name: user.name
+                _id: user._id,
+                name: user.name,
             });
 
             await Token.create({
-                _user_id:user._id,
-                ...tokenPair
-            })
+                _user_id: user._id,
+                ...tokenPair,
+            });
 
             return tokenPair;
-        }catch (e) {
-            throw new ApiError(e.message,e.status)
+        } catch (e) {
+            throw new ApiError(e.message, e.status);
         }
     }
 }
