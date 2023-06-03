@@ -3,7 +3,7 @@ import {passwordService} from "./password.services";
 import {User} from "../models/User.model";
 import {ApiError} from "../error/api.error";
 import {ICredentials} from "../types/auth.types";
-import {ITokenPair} from "../types/token.types";
+import {ITokenPair, ITokenPayload} from "../types/token.types";
 import {tokenService} from "./token.service";
 import {Token} from "../models/Token.model";
 
@@ -46,6 +46,37 @@ class AuthService{
         } catch (e) {
             throw new ApiError(e.message, e.status);
         }
+    }
+
+    public async refresh(tokenInfo:ITokenPair,jwtPayload:ITokenPayload):Promise<ITokenPair>{
+        try {
+            const tokenPair = tokenService.generateTokenPair({
+                _id:jwtPayload._id,
+                name:jwtPayload.name
+            })
+            await Promise.all([
+                Token.create({_user_id:jwtPayload._id,...tokenPair}),
+                Token.deleteOne({refreshToken:tokenInfo.refreshToken})
+            ]);
+            return tokenPair;
+        }catch (e) {
+            throw new ApiError(e.message,e.status)
+        }
+    }
+
+
+    public async changePassword(userId:string,oldPassword:string,newPassword:string):Promise<void>{
+      try {
+          const user = await User.findById(userId);
+          const isMathced = await passwordService.compare(oldPassword, user.password)
+          if(!isMathced){
+              throw new ApiError("Wrong old password",400);
+          }
+          const hashedNewPassword = await passwordService.hash(newPassword);
+          await User.updateOne({_id:user._id},{password:hashedNewPassword})
+      }catch (e) {
+          throw new ApiError(e.message,e.status);
+      }
     }
 }
 
