@@ -6,5 +6,6 @@ export interface IUser{
     password:string;
     gender:string;
     age:number;
+    avatar?:string;
 }
 

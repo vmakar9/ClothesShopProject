@@ -10,8 +10,8 @@ router.post('/login',userMiddleware.getDynamicallyOrThrow("email"),authControlle
 router.post('/register',userMiddleware.getDynamicallyAndThrow("email"),authController.register)
 router.post('/refresh',authMiddleware.checkRefreshToken,authController.refresh)
 router.post('/password/change',authMiddleware.checkAccessToken,userMiddleware.getDynamicallyAndThrow("email"),authController.changePassword)
-router.post('/password/forgot',authController.forgotPassword)
-router.put('/password/forgot/:token',authMiddleware.checkOldPassword,authController.setForgotPassword)
+router.post('/password/forgot',userMiddleware.getDynamicallyOrThrow("email"),authController.forgotPassword)
+router.put('/password/forgot/:token',authMiddleware.checkActionToken(EActionTokenType.forgot),authController.setForgotPassword)
 router.post('/activate',userMiddleware.getDynamicallyOrThrow("email"),authController.sendActivateToken)
 router.put('/activate/:token',authMiddleware.checkActionToken(EActionTokenType.activate),authController.activate)
 
