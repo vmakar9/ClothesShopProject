@@ -3,6 +3,8 @@ import {UploadedFile} from "express-fileupload";
 import {userService} from "../services/user.service";
 import {IUser} from "../types/user.types";
 import {userMapper} from "../mapper/user.mapper";
+import {User} from "../models/User.model";
+import {ApiError} from "../error/api.error";
 
 class UserController{
     public async uploadAvatar(req:Request,res:Response,next:NextFunction):Promise<Response<IUser>>{
@@ -28,6 +30,27 @@ class UserController{
             next(e)
         }
     }
+
+   public async update(req:Request,res:Response,next:NextFunction):Promise<Response<IUser>>{
+        try {
+            const {tokenInfo} = req.res.locals;
+            const {userId} = req.params;
+
+            if(tokenInfo._user_id !=  userId){
+                throw new ApiError("Access denied",401)
+            }
+
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                {...req.body},
+                {new:true}
+            );
+
+            return res.status(201).json(updatedUser)
+        }catch (e) {
+            next(e);
+        }
+   }
 
 }
 export const userController = new UserController();

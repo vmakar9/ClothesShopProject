@@ -39,6 +39,8 @@ class UserService{
             throw new ApiError(e.message,e.status)
         }
     }
+
+
 }
 
 export const userService = new UserService();

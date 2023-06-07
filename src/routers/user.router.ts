@@ -16,4 +16,6 @@ router.delete("/:userId/avatar",
     userMiddleware.getByIdOrThrow,
     userController.deleteAvatar);
 
+router.patch("/:userId",authMiddleware.checkAccessToken,userController.update)
+
 export const userRouter = router;
