@@ -40,13 +40,12 @@ class ClothesService{
         }
     }
 
-    public async update(userId:string,data:IClothes,clothesId:string):Promise<IClothes> {
+    public async update(userId:string,data:IClothes,clothesId:string) {
         try {
             const clothes = await Clothes.findByIdAndUpdate({_id: clothesId, user: userId}, data, {new: true});
             if (!clothes) {
                 throw new ApiError("Clothes not found or user does not have permission", 401);
             }
-            return clothes;
         }catch (e) {
             throw new ApiError(e.message,e.status)
         }
