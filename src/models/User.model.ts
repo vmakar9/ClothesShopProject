@@ -1,5 +1,4 @@
 import {model,Schema} from "mongoose";
-import {EGenders} from "../enum/gender.enum";
 import {EUserStatus} from "../enum/user-status.enum";
 
 const userSchema = new Schema(
@@ -7,8 +6,8 @@ const userSchema = new Schema(
         name:{
             type:String
         },
-        age:{
-            type:Number
+        surname:{
+           type:String,
         },
         email:{
             type:String,
@@ -20,10 +19,6 @@ const userSchema = new Schema(
         password:{
             type:String,
             required:[true,"Password is required"]
-        },
-        gender:{
-            type:String,
-            enum:EGenders
         },
         avatar:{
           type:String,

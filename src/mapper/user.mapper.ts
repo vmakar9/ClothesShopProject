@@ -6,9 +6,8 @@ class UserMapper{
         return{
             _id: user._id,
             name: user.name,
+            surname:user.surname,
             email: user.email,
-            gender: user.gender,
-            age: user.age || null,
             avatar: user.avatar ? `${configs.AWS_S3_BUCKET_URL}/${user.avatar}` : null,
         };
     }
