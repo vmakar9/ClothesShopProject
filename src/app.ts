@@ -4,6 +4,7 @@ import * as mongoose from "mongoose";
 import {authRouter} from "./routers/auth.router";
 import fileUploader from "express-fileupload"
 import {userRouter} from "./routers/user.router";
+import {clothesRouter} from "./routers/clothes.router";
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(fileUploader())
 
 app.use("/auth", authRouter);
 app.use("/users",userRouter);
+app.use("/clothes",clothesRouter)
 
 app.listen(configs.PORT,()=> {
     mongoose.connect(configs.DB_URL);
