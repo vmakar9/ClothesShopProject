@@ -8,15 +8,16 @@ import {ApiError} from "../error/api.error";
 
 
 class ClothesController{
-    public async getById(req:Request,res:Response,next:NextFunction):Promise<Response<IClothes>>{
-        try{
-            const { clothes, jwtPayload } =res.locals;
-            const result = await clothesService.getById(jwtPayload._id, clothes._id);
-            return res.json(result);
+
+    public async getAll(req:Request,res:Response,next:NextFunction):Promise<Response<IClothes[]>>{
+        try {
+            const clothes = await clothesService.getAll();
+            return res.json(clothes);
         }catch (e) {
-            next(e);
+            next(e)
         }
     }
+
 
     public async create(req:Request,res:Response,next:NextFunction):Promise<Response<ICommonResponse<IClothes>>>{
         try {
@@ -62,6 +63,16 @@ class ClothesController{
             return res.sendStatus(204)
         }catch (e) {
             next(e);
+        }
+    }
+
+    public async getClothesById(req:Request,res:Response,next:NextFunction):Promise<Response<IClothes>>{
+        try {
+            const {clothesId} = req.params;
+            const clothes = await clothesService.getClothesById(clothesId);
+            return res.json(clothes);
+        }catch (e) {
+            next(e)
         }
     }
 

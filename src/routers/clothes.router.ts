@@ -5,9 +5,11 @@ import {clothesMiddleware} from "../middleware/clothes.middleware";
 
 const router = Router();
 
+router.get("/",clothesController.getAll)
+
 router.post("/",authMiddleware.checkAccessToken,clothesController.create)
 
-router.get("/:clothesId",authMiddleware.checkAccessToken,clothesMiddleware.getIdOrThrow,clothesController.getById)
+router.get("/:clothesId",clothesMiddleware.getIdOrThrow,clothesController.getClothesById)
 
 router.put("/:clothesId",authMiddleware.checkAccessToken,clothesMiddleware.getIdOrThrow,clothesController.update)
 

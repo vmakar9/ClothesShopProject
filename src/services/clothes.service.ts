@@ -12,32 +12,19 @@ class ClothesService{
         }
     }
 
-    public async getById(userId: string, clothesId: string): Promise<IClothes> {
+    public async getAll():Promise<IClothes[]>{
+        try{
+            return Clothes.find()
+        }catch (e){
+            throw new ApiError(e.message,e.status)
+        }
+    }
+
+    public async getClothesById(clothesId:string):Promise<IClothes>{
         try {
-            const result = await Clothes.aggregate([
-                {
-                    $match: {
-                        _id: clothesId,
-                        user: new Types.ObjectId(userId),
-                    },
-                },
-                {
-                    $lookup: {
-                        from: "users",
-                        localField: "user",
-                        foreignField: "_id",
-                        as: "user",
-                    },
-                },
-                {
-                    $unwind: {
-                        path: "$user",
-                    },
-                },
-            ]);
-            return result[0];
-        } catch (e) {
-            throw new ApiError(e.message, e.status);
+            return  await Clothes.findById(clothesId).populate({path:'user',select:['name','surname']})
+        }catch (e) {
+            throw new ApiError(e.message,e.status)
         }
     }
 
