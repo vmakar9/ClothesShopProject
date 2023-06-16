@@ -5,6 +5,7 @@ import {ICommonResponse} from "../types/common.types";
 import {ITokenPayload} from "../types/token.types";
 import {Clothes} from "../models/Clothes.model";
 import {ApiError} from "../error/api.error";
+import {UploadedFile} from "express-fileupload";
 
 
 class ClothesController{
@@ -71,6 +72,17 @@ class ClothesController{
             const {clothesId} = req.params;
             const clothes = await clothesService.getClothesById(clothesId);
             return res.json(clothes);
+        }catch (e) {
+            next(e)
+        }
+    }
+
+    public async uploadPhotos(req:Request,res:Response,next:NextFunction):Promise<Response<IClothes>>{
+        try {
+            const clothesEntity = res.locals.clothes as IClothes;
+            const photos = req.files.photos as UploadedFile;
+            const clothes = await clothesService.uploadPhotos(photos,clothesEntity);
+            return res.status(201).json(clothes)
         }catch (e) {
             next(e)
         }

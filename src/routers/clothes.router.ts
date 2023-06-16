@@ -15,4 +15,6 @@ router.put("/:clothesId",authMiddleware.checkAccessToken,clothesMiddleware.getId
 
 router.delete("/:clothesId",authMiddleware.checkAccessToken,clothesMiddleware.getIdOrThrow,clothesController.delete)
 
+router.put("/photos/:clothesId",authMiddleware.checkAccessToken,clothesMiddleware.getIdOrThrow,clothesController.uploadPhotos)
+
 export const clothesRouter = router;

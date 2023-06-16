@@ -14,5 +14,6 @@ export interface IClothes{
     season:string[];
     people:string;
     type:string;
+    photos:string[];
     user:IUser | Types.ObjectId
 }
