@@ -4,8 +4,7 @@ import {userService} from "../services/user.service";
 import {IUser} from "../types/user.types";
 import {userMapper} from "../mapper/user.mapper";
 import {User} from "../models/User.model";
-import {ApiError} from "../error/api.error";
-import {ITokenPayload} from "../types/token.types";
+
 
 class UserController{
     public async uploadAvatar(req:Request,res:Response,next:NextFunction):Promise<Response<IUser>>{
@@ -34,12 +33,10 @@ class UserController{
 
    public async update(req:Request,res:Response,next:NextFunction):Promise<Response<IUser>>{
         try {
-            const {_id} = req.res.locals.jwtPayload as ITokenPayload;
+
             const {userId} = req.params;
 
-            if(_id !=  userId){
-                throw new ApiError("Access denied",401)
-            }
+
 
             const updatedUser = await User.findByIdAndUpdate(
                 userId,

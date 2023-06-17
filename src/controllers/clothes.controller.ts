@@ -4,7 +4,6 @@ import {clothesService} from "../services/clothes.service";
 import {ICommonResponse} from "../types/common.types";
 import {ITokenPayload} from "../types/token.types";
 import {Clothes} from "../models/Clothes.model";
-import {ApiError} from "../error/api.error";
 import {UploadedFile} from "express-fileupload";
 
 
@@ -33,14 +32,6 @@ class ClothesController{
     public async update(req:Request,res:Response,next:NextFunction):Promise<Response<IClothes>>{
         try {
             const { clothesId } = req.params;
-            const {_id} = req.res.locals.jwtPayload as ITokenPayload;
-
-
-            const clothes = await Clothes.findById(clothesId);
-
-            if(clothes.user !=  _id){
-                throw new ApiError("You dont have permission to this action ",401)
-            }
 
             const updatedClothes = await Clothes.findByIdAndUpdate(clothesId, { ...req.body }, { new: true });
 
@@ -54,12 +45,6 @@ class ClothesController{
     public async delete(req:Request,res:Response,next:NextFunction):Promise<Response<void>>{
         try {
             const { clothesId } = req.params;
-            const {_id} = req.res.locals.jwtPayload as ITokenPayload;
-            const clothes = await Clothes.findById(clothesId);
-            if(clothes.user !=  _id){
-                throw new ApiError("You dont have permission to this action ",401)
-            }
-
             await Clothes.deleteOne({_id:clothesId});
             return res.sendStatus(204)
         }catch (e) {
@@ -82,10 +67,25 @@ class ClothesController{
             const clothesEntity = res.locals.clothes as IClothes;
             const photos = req.files.photos as UploadedFile;
             const clothes = await clothesService.uploadPhotos(photos,clothesEntity);
+
             return res.status(201).json(clothes)
         }catch (e) {
             next(e)
         }
+    }
+
+    public async deletePhoto(req:Request,res:Response,next:NextFunction):Promise<Response<IClothes>>{
+        try {
+            const clothesEntity = res.locals.clothes as IClothes;
+            const photoIndex = Number(req.params.index);
+
+            const updatedClothes = await clothesService.deletePhoto(clothesEntity,photoIndex)
+
+            return res.status(201).json(updatedClothes);
+        }catch (e) {
+            next(e)
+        }
+
     }
 
 }

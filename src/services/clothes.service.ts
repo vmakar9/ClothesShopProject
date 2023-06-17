@@ -48,6 +48,28 @@ class ClothesService{
         }
     }
 
+    public async deletePhoto(clothes:IClothes,photoIndex:number):Promise<IClothes>{
+        try{
+            const currentPhotos = clothes.photos || [];
+            if(photoIndex <0 || photoIndex >=  currentPhotos.length){
+                throw new ApiError("Invalid photo index",422)
+            }
+
+            const photoPathToDelete = currentPhotos[photoIndex];
+
+            await s3Service.deletePhoto(photoPathToDelete);
+            currentPhotos.splice(photoIndex,1)
+
+            return await Clothes.findByIdAndUpdate(
+                clothes._id,
+                {photos:currentPhotos},
+                {new:true}
+            )
+        }catch (e) {
+            throw new ApiError(e.message,e.status)
+        }
+    }
+
 }
 
 export const clothesService= new ClothesService();
