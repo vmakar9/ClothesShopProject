@@ -5,13 +5,16 @@ import {ICommonResponse} from "../types/common.types";
 import {ITokenPayload} from "../types/token.types";
 import {Clothes} from "../models/Clothes.model";
 import {UploadedFile} from "express-fileupload";
+import {IQuery} from "../types/pagination.types";
 
 
 class ClothesController{
 
     public async getAll(req:Request,res:Response,next:NextFunction):Promise<Response<IClothes[]>>{
         try {
-            const clothes = await clothesService.getAll();
+            const clothes = await clothesService.getWithPagination(
+                req.query as IQuery
+            )
             return res.json(clothes);
         }catch (e) {
             next(e)

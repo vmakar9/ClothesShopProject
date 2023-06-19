@@ -4,6 +4,7 @@ import {Types} from "mongoose";
 import {ApiError} from "../error/api.error";
 import {UploadedFile} from "express-fileupload";
 import {s3Service} from "./s3.service";
+import {IPaginationResponse, IQuery} from "../types/pagination.types";
 
 class ClothesService{
     public async create(data:IClothes,userId:string){
@@ -14,11 +15,39 @@ class ClothesService{
         }
     }
 
-    public async getAll():Promise<IClothes[]>{
-        try{
-            return Clothes.find()
-        }catch (e){
-            throw new ApiError(e.message,e.status)
+
+
+    public async getWithPagination(query:IQuery):Promise<IPaginationResponse<IClothes>>{
+        try {
+            const queryStr = JSON.stringify(query);
+            const queryObj = JSON.parse(queryStr.replace(/\b(gte|lte|gt|lt)\b/,(match)=>  `$${match}`))
+
+            const {
+                page = 1,
+                limit = 5,
+                sortedBy = "createdAt",
+                ...searchObject
+            } = queryObj;
+
+            const skip = limit * (page - 1);
+
+            const clothes = await Clothes.find(searchObject)
+                .limit(limit)
+                .skip(skip)
+                .sort(sortedBy)
+                .lean();
+
+            const clothesTotalCount = await Clothes.count();
+
+            return {
+                page: +page,
+                itemsCount: clothesTotalCount,
+                perPage: +limit,
+                itemsFound: clothes.length,
+                data:clothes
+            };
+        }catch (e) {
+            throw new ApiError(e.message,e.status);
         }
     }
 

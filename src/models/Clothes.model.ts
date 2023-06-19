@@ -1,7 +1,11 @@
 import  {model, Schema, Types} from "mongoose";
 
-import { User } from "./User.model"
 import {EClothesPeople} from "../enum/clothes-people.enum";
+import {IClothes} from "../types/clothes.types";
+import {User} from "./User.model";
+import {Comments} from "./Comments.model";
+
+
 
 const clothesSchema = new Schema(
     {
@@ -46,11 +50,17 @@ const clothesSchema = new Schema(
             type:Types.ObjectId,
             required: true,
             ref:User,
+        },
+        comments:{
+            type:Schema.Types.ObjectId,
+            required:true,
+            ref:Comments
         }
+
     },{
         versionKey:false,
         timestamps:true
     }
 );
 
-export const Clothes = model('clothes',clothesSchema)
+export const Clothes = model<IClothes>('clothes',clothesSchema)
