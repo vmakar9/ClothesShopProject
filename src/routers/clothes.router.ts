@@ -3,6 +3,8 @@ import {authMiddleware} from "../middleware/auth.middleware";
 import {clothesController} from "../controllers/clothes.controller";
 import {clothesMiddleware} from "../middleware/clothes.middleware";
 import {accessMiddleware} from "../middleware/access.middleware";
+import {commentsMiddleware} from "../middleware/comments.middleware";
+import {commentsController} from "../controllers/comments.controller";
 
 const router = Router();
 
@@ -41,4 +43,29 @@ router.delete("/photos/:clothesId/:index",
     accessMiddleware.getClothesAccess,
     clothesController.deletePhoto)
 
+router.post("/:clothesId/comments",
+    authMiddleware.checkAccessToken,
+    clothesMiddleware.getIdOrThrow,
+    commentsController.create)
+
+router.put("/:clothesId/comments/:commentsId",
+    authMiddleware.checkAccessToken,
+    clothesMiddleware.getIdOrThrow,
+    commentsMiddleware.gedIdOrThrow,
+    commentsController.update)
+
+router.delete("/:clothesId/comments/:commentsId",
+    authMiddleware.checkAccessToken,
+    clothesMiddleware.getIdOrThrow,
+    commentsMiddleware.gedIdOrThrow,
+    commentsController.delete)
+
+router.get("/:clothesId/comments/:commentsId",
+    clothesMiddleware.getIdOrThrow,
+    commentsMiddleware.gedIdOrThrow,
+    commentsController.getById)
+
+
+
 export const clothesRouter = router;
+

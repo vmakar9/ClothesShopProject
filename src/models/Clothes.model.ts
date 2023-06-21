@@ -13,7 +13,7 @@ const clothesSchema = new Schema(
             type:String,
         },
         description:{
-            title:String,
+            type:String,
         },
         price:{
             type:Number,
@@ -52,8 +52,7 @@ const clothesSchema = new Schema(
             ref:User,
         },
         comments:{
-            type:Schema.Types.ObjectId,
-            required:true,
+            type:Types.ObjectId,
             ref:Comments
         }
 

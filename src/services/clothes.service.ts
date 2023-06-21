@@ -53,7 +53,7 @@ class ClothesService{
 
     public async getClothesById(clothesId:string):Promise<IClothes>{
         try {
-            return  await Clothes.findById(clothesId).populate({path:'user',select:['name','surname']})
+            return  await Clothes.findById(clothesId).populate({path:'user',select:['name','surname']});
         }catch (e) {
             throw new ApiError(e.message,e.status)
         }

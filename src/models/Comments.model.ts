@@ -2,6 +2,7 @@ import {model, Schema, Types} from "mongoose";
 import {User} from "./User.model";
 
 
+
 const commentsSchema = new Schema(
     {
         title: {
@@ -10,12 +11,12 @@ const commentsSchema = new Schema(
         description: {
             type: String,
         },
-
         user: {
             type: Types.ObjectId,
             required: true,
             ref: User,
         },
+
 
     },{
         versionKey:false,
