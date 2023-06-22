@@ -8,7 +8,7 @@ import {EActionTokenType} from "../enum/action-token-type";
 class TokenService{
     public generateTokenPair(payload:ITokenPayload):ITokenPair{
         const accessToken = jwt.sign(payload,configs.JWT_ACCESS_SECRET,{
-            expiresIn:"15m"
+            expiresIn:"1h"
         });
         const refreshToken = jwt.sign(payload,configs.JWT_REFRESH_SECRET,{
             expiresIn:"30d",

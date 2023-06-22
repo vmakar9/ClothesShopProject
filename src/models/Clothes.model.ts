@@ -3,7 +3,6 @@ import  {model, Schema, Types} from "mongoose";
 import {EClothesPeople} from "../enum/clothes-people.enum";
 import {IClothes} from "../types/clothes.types";
 import {User} from "./User.model";
-import {Comments} from "./Comments.model";
 
 
 
@@ -51,15 +50,12 @@ const clothesSchema = new Schema(
             required: true,
             ref:User,
         },
-        comments:{
-            type:Types.ObjectId,
-            ref:Comments
-        }
 
     },{
         versionKey:false,
         timestamps:true
     }
 );
+
 
 export const Clothes = model<IClothes>('clothes',clothesSchema)

@@ -8,7 +8,8 @@ class CommentsController{
     public async create(req:Request,res:Response,next:NextFunction):Promise<Response<IComments>>{
         try {
             const {_id} = req.res.locals.jwtPayload as ITokenPayload;
-            const comment = await commentsService.create(req.body,_id);
+            const {clothesId} = req.params
+            const comment = await commentsService.create(req.body,_id,clothesId);
 
             return res.status(201).json(comment);
         }catch (e) {
@@ -18,8 +19,8 @@ class CommentsController{
 
     public async getById(req:Request,res:Response,next:NextFunction):Promise<Response<IComments>>{
         try {
-            const {commentsId} = req.params;
-            const comment = await commentsService.getCommentsById(commentsId);
+            const {comments,jwtPayload,clothes} = res.locals;
+            const comment = await commentsService.getCommentsById(comments._id,jwtPayload._id,clothes._id);
             return res.json(comment)
         }catch (e) {
             next(e)

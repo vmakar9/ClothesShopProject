@@ -61,6 +61,7 @@ router.delete("/:clothesId/comments/:commentsId",
     commentsController.delete)
 
 router.get("/:clothesId/comments/:commentsId",
+    authMiddleware.checkAccessToken,
     clothesMiddleware.getIdOrThrow,
     commentsMiddleware.gedIdOrThrow,
     commentsController.getById)
