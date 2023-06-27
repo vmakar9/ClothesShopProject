@@ -13,6 +13,7 @@ router.get("/",
 
 router.post("/",
     authMiddleware.checkAccessToken,
+    accessMiddleware.getUserStatus,
     clothesController.create)
 
 router.get("/:clothesId",
@@ -22,43 +23,51 @@ router.get("/:clothesId",
 router.put("/:clothesId",
     authMiddleware.checkAccessToken,
     clothesMiddleware.getIdOrThrow,
+    accessMiddleware.getUserStatus,
     accessMiddleware.getClothesAccess,
     clothesController.update)
 
 router.delete("/:clothesId",
     authMiddleware.checkAccessToken,
     clothesMiddleware.getIdOrThrow,
+    accessMiddleware.getUserStatus,
     accessMiddleware.getClothesAccess,
     clothesController.delete)
 
 router.put("/photos/:clothesId",
     authMiddleware.checkAccessToken,
     clothesMiddleware.getIdOrThrow,
+    accessMiddleware.getUserStatus,
     accessMiddleware.getClothesAccess,
     clothesController.uploadPhotos)
 
 router.delete("/photos/:clothesId/:index",
     authMiddleware.checkAccessToken,
     clothesMiddleware.getIdOrThrow,
+    accessMiddleware.getUserStatus,
     accessMiddleware.getClothesAccess,
     clothesController.deletePhoto)
 
 router.post("/:clothesId/comments",
     authMiddleware.checkAccessToken,
+    accessMiddleware.getUserStatus,
     clothesMiddleware.getIdOrThrow,
     commentsController.create)
 
 router.put("/comments/:commentsId",
     authMiddleware.checkAccessToken,
+    accessMiddleware.getUserStatus,
     commentsController.update)
 
 router.delete("/comments/:commentsId",
     authMiddleware.checkAccessToken,
+    accessMiddleware.getUserStatus,
     commentsController.delete)
 
 router.get("/:clothesId/comments/:commentsId",
     authMiddleware.checkAccessToken,
     clothesMiddleware.getIdOrThrow,
+    accessMiddleware.getUserStatus,
     commentsMiddleware.gedIdOrThrow,
     commentsController.getById)
 

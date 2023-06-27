@@ -10,16 +10,20 @@ const router = Router();
 router.put("/:userId/avatar",
     authMiddleware.checkAccessToken,
     userMiddleware.getByIdOrThrow,
+    accessMiddleware.getUserStatus,
     fileMiddleware.isAvatarValid,
     userController.uploadAvatar);
 
 router.delete("/:userId/avatar",
     authMiddleware.checkAccessToken,
     userMiddleware.getByIdOrThrow,
+    accessMiddleware.getUserStatus,
     userController.deleteAvatar);
 
 router.patch("/:userId",
     authMiddleware.checkAccessToken,
+    userMiddleware.getByIdOrThrow,
+    accessMiddleware.getUserStatus,
     accessMiddleware.getUserAccess,
     userController.update)
 

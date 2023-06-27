@@ -35,5 +35,20 @@ class AccessMiddleware{
             next(e)
         }
     }
+    public async getUserStatus(req:Request,res:Response,next:NextFunction):Promise<void>{
+         try {
+             const {_id} = req.res.locals.jwtPayload as ITokenPayload;
+
+             const user = await User.findById(_id);
+
+             if(user.status !=  'active'){
+               throw new ApiError("Your account is not activated or blocked",401)
+             }
+             res.locals.user = user;
+             next()
+         }catch (e) {
+             next(e)
+         }
+    }
 }
 export const accessMiddleware = new AccessMiddleware();
