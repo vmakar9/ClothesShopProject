@@ -50,7 +50,6 @@ const clothesSchema = new Schema(
             required: true,
             ref:User,
         },
-
     },{
         versionKey:false,
         timestamps:true

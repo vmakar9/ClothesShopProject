@@ -2,7 +2,8 @@ import {Request,Response,NextFunction} from "express";
 import {IComments} from "../types/comments.types";
 import {ITokenPayload} from "../types/token.types";
 import {commentsService} from "../services/comments.service";
-import {Comments} from "../models/Comments.model";
+
+
 
 class CommentsController{
     public async create(req:Request,res:Response,next:NextFunction):Promise<Response<IComments>>{
@@ -29,15 +30,10 @@ class CommentsController{
 
     public async update(req:Request,res:Response,next:NextFunction):Promise<Response<IComments>>{
         try {
-            const {commentId} = req.params;
-
-            const updatedComment = await Comments.findByIdAndUpdate(
-                commentId,
-                {...req.body},
-                {new:true}
-            );
-
-            return res.status(201).json(updatedComment);
+            const {commentsId} = req.params;
+            const updatedData = req.body;
+            const updatedComment = await commentsService.update(commentsId,updatedData);
+            return res.status(200).json(updatedComment)
         }catch (e) {
             next(e)
         }
@@ -45,9 +41,9 @@ class CommentsController{
 
     public async delete(req:Request,res:Response,next:NextFunction):Promise<Response<void>>{
         try {
-            const {commentId} = req.params;
+            const {commentsId} = req.params;
 
-            await Comments.deleteOne({_id:commentId});
+            await commentsService.delete(commentsId);
 
             return res.sendStatus(204);
         }catch (e) {

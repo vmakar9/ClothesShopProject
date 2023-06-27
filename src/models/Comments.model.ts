@@ -1,7 +1,6 @@
 import {model, Schema, Types} from "mongoose";
 import {User} from "./User.model";
 import {Clothes} from "./Clothes.model";
-import {IComments} from "../types/comments.types";
 
 
 
@@ -30,4 +29,4 @@ const commentsSchema = new Schema(
         timestamps:true
     })
 
-export const Comments = model<IComments>("comments",commentsSchema)
+export const Comments = model("comments",commentsSchema)

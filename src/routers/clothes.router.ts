@@ -48,16 +48,12 @@ router.post("/:clothesId/comments",
     clothesMiddleware.getIdOrThrow,
     commentsController.create)
 
-router.put("/:clothesId/comments/:commentsId",
+router.put("/comments/:commentsId",
     authMiddleware.checkAccessToken,
-    clothesMiddleware.getIdOrThrow,
-    commentsMiddleware.gedIdOrThrow,
     commentsController.update)
 
-router.delete("/:clothesId/comments/:commentsId",
+router.delete("/comments/:commentsId",
     authMiddleware.checkAccessToken,
-    clothesMiddleware.getIdOrThrow,
-    commentsMiddleware.gedIdOrThrow,
     commentsController.delete)
 
 router.get("/:clothesId/comments/:commentsId",

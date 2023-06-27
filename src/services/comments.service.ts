@@ -58,6 +58,22 @@ class CommentsService{
         }
     }
 
+    public async update(commentId:string,updatedData:IComments){
+        try {
+            await Comments.findByIdAndUpdate(commentId,updatedData);
+        }catch (e) {
+            throw new ApiError(e.message,e.status)
+        }
+    }
+
+    public async delete(commentId:string){
+        try {
+            await Comments.findByIdAndDelete(commentId)
+        }catch (e) {
+            throw new ApiError(e.message,e.status)
+        }
+    }
+
 
 }
 
