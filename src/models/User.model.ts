@@ -1,5 +1,6 @@
 import {model,Schema} from "mongoose";
 import {EUserStatus} from "../enum/user-status.enum";
+import {ERoles} from "../enum/roles.enum";
 
 const userSchema = new Schema(
     {
@@ -28,6 +29,11 @@ const userSchema = new Schema(
             type:String,
             enum:EUserStatus,
             default:EUserStatus.inactive
+        },
+        role:{
+            type:String,
+            enum:ERoles,
+            default:ERoles.user
         }
     },
     {

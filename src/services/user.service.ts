@@ -4,6 +4,7 @@ import {s3Service} from "./s3.service";
 import {User} from "../models/User.model";
 import {ApiError} from "../error/api.error";
 
+
 class UserService{
     public async uploadAvatar(file:UploadedFile,user:IUser):Promise<IUser>{
         try {

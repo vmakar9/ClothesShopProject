@@ -36,8 +36,6 @@ class UserController{
 
             const {userId} = req.params;
 
-
-
             const updatedUser = await User.findByIdAndUpdate(
                 userId,
                 {...req.body},
@@ -49,6 +47,7 @@ class UserController{
             next(e);
         }
    }
+
 
 }
 export const userController = new UserController();

@@ -44,6 +44,7 @@ class AuthService{
             const tokenPair = tokenService.generateTokenPair({
                 _id: user._id,
                 name: user.name,
+                role: user.role
             });
 
             await Token.create({
@@ -61,7 +62,8 @@ class AuthService{
         try {
             const tokenPair = tokenService.generateTokenPair({
                 _id:jwtPayload._id,
-                name:jwtPayload.name
+                name:jwtPayload.name,
+                role:jwtPayload.role
             })
             await Promise.all([
                 Token.create({_user_id:jwtPayload._id,...tokenPair}),

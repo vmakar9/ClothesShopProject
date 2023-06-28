@@ -8,10 +8,10 @@ class AccessMiddleware{
     public async getClothesAccess(req:Request,res:Response,next:NextFunction):Promise<void>{
         try {
             const {clothesId} = req.params;
-            const {_id} = req.res.locals.jwtPayload as ITokenPayload;
+            const {_id,role} = req.res.locals.jwtPayload as ITokenPayload;
             const clothes = await Clothes.findById(clothesId);
 
-            if(clothes.user._id !=  _id){
+            if(clothes.user._id !=  _id && role !=  'admin'){
                 throw new ApiError("Access denied",401);
             }
             res.locals.clothes = clothes;
@@ -49,6 +49,24 @@ class AccessMiddleware{
          }catch (e) {
              next(e)
          }
+    }
+    public async ifUserAdmin(req:Request,res:Response,next:NextFunction):Promise<void>{
+        try{
+            const {_id,role} = req.res.locals.jwtPayload as ITokenPayload;
+            const user = await User.findById(_id);
+
+            if (!user) {
+                throw new ApiError("User not found", 404);
+            }
+
+            if(role !=  'admin'){
+                throw new ApiError("You dont have any permission to do it",401)
+            }
+            res.locals.user = user;
+            next();
+        }catch (e) {
+            next(e);
+        }
     }
 }
 export const accessMiddleware = new AccessMiddleware();

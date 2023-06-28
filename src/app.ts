@@ -8,6 +8,8 @@ import {clothesRouter} from "./routers/clothes.router";
 import {Server,Socket} from "socket.io";
 import http from "http";
 import {messagesRouter} from "./routers/messages.router";
+import {adminRouter} from "./routers/admin.router";
+
 
 const app = express();
 const server = http.createServer(app);
@@ -22,6 +24,7 @@ app.use("/auth", authRouter);
 app.use("/users",userRouter);
 app.use("/clothes",clothesRouter)
 app.use("/messages",messagesRouter)
+app.use("/admin",adminRouter)
 
 io.on('connection',(socket:Socket)=>  {
     console.log("New  socket connected",socket.id);
