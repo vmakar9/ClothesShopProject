@@ -1,6 +1,7 @@
-import {model,Schema} from "mongoose";
+import {model, Schema} from "mongoose";
 import {EUserStatus} from "../enum/user-status.enum";
 import {ERoles} from "../enum/roles.enum";
+
 
 const userSchema = new Schema(
     {
@@ -8,7 +9,7 @@ const userSchema = new Schema(
             type:String
         },
         surname:{
-           type:String,
+            type:String,
         },
         email:{
             type:String,
@@ -22,8 +23,8 @@ const userSchema = new Schema(
             required:[true,"Password is required"]
         },
         avatar:{
-          type:String,
-          required:false
+            type:String,
+            required:false
         },
         status:{
             type:String,
@@ -34,7 +35,8 @@ const userSchema = new Schema(
             type:String,
             enum:ERoles,
             default:ERoles.user
-        }
+        },
+
     },
     {
         versionKey:false,

@@ -3,7 +3,7 @@ import {authMiddleware} from "../middleware/auth.middleware";
 import {clothesController} from "../controllers/clothes.controller";
 import {clothesMiddleware} from "../middleware/clothes.middleware";
 import {accessMiddleware} from "../middleware/access.middleware";
-import {commentsMiddleware} from "../middleware/comments.middleware";
+
 import {commentsController} from "../controllers/comments.controller";
 
 const router = Router();
@@ -64,11 +64,10 @@ router.delete("/comments/:commentsId",
     accessMiddleware.getUserStatus,
     commentsController.delete)
 
-router.get("/:clothesId/comments/:commentsId",
+router.get("/:clothesId/comments",
     authMiddleware.checkAccessToken,
     clothesMiddleware.getIdOrThrow,
     accessMiddleware.getUserStatus,
-    commentsMiddleware.gedIdOrThrow,
     commentsController.getById)
 
 

@@ -1,9 +1,8 @@
-import  {model, Schema, Types} from "mongoose";
 
 import {EClothesPeople} from "../enum/clothes-people.enum";
 import {IClothes} from "../types/clothes.types";
 import {User} from "./User.model";
-
+import {model, Schema, Types} from "mongoose";
 
 
 const clothesSchema = new Schema(
@@ -50,6 +49,7 @@ const clothesSchema = new Schema(
             required: true,
             ref:User,
         },
+
     },{
         versionKey:false,
         timestamps:true

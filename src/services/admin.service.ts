@@ -32,6 +32,19 @@ class AdminService{
             throw new ApiError(e.message,e.status)
         }
     }
+
+    public async unBanUser(userId:string):Promise<void>{
+        try {
+            await Promise.all([
+                User.updateOne(
+                    {_id:userId},
+                    {$set:{status:EUserStatus.active}}
+                )
+            ])
+        }catch (e) {
+            throw new ApiError(e.message,e.status)
+        }
+    }
 }
 
 export const adminService = new AdminService();

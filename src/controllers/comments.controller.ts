@@ -1,7 +1,8 @@
-import {Request,Response,NextFunction} from "express";
+import {Request, Response, NextFunction} from "express";
 import {IComments} from "../types/comments.types";
 import {ITokenPayload} from "../types/token.types";
 import {commentsService} from "../services/comments.service";
+import {Comments} from "../models/Comments.model";
 
 
 
@@ -20,9 +21,12 @@ class CommentsController{
 
     public async getById(req:Request,res:Response,next:NextFunction):Promise<Response<IComments>>{
         try {
-            const {comments,jwtPayload,clothes} = res.locals;
-            const comment = await commentsService.getCommentsById(comments._id,jwtPayload._id,clothes._id);
-            return res.json(comment)
+            const {clothesId} = req.params;
+
+            // Find all comments associated with the provided clothesId
+            const comments = await Comments.find({ clothes: clothesId });
+
+             return res.json(comments);
         }catch (e) {
             next(e)
         }

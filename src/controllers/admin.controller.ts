@@ -32,5 +32,15 @@ class AdminController{
         }
     }
 
+    public async unBanUser(req:Request,res:Response,next:NextFunction):Promise<void>{
+        try {
+            const {userId} = req.params;
+            await adminService.unBanUser(userId);
+            res.sendStatus(200);
+        }catch (e) {
+            next(e)
+        }
+    }
+
 }
 export const adminController = new AdminController();

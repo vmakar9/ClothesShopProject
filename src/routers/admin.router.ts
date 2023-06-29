@@ -10,7 +10,7 @@ router.get("/users",
     authMiddleware.checkAccessToken,
     accessMiddleware.ifUserAdmin,
     adminController.getAll)
-router.post("/banlist/:userId",
+router.post("/banlist/ban/:userId",
     authMiddleware.checkAccessToken,
     userMiddleware.getByIdOrThrow,
     accessMiddleware.ifUserAdmin,
@@ -20,5 +20,11 @@ router.get("/banlist/",
     authMiddleware.checkAccessToken,
     accessMiddleware.ifUserAdmin,
     adminController.getBanedUsers)
+
+router.post("/banlist/unban/:userId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.getByIdOrThrow,
+    accessMiddleware.ifUserAdmin,
+    adminController.unBanUser)
 
 export const adminRouter = router

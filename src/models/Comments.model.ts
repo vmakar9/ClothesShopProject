@@ -1,8 +1,7 @@
-import {model, Schema, Types} from "mongoose";
+
 import {User} from "./User.model";
+import {model, Schema, Types} from "mongoose";
 import {Clothes} from "./Clothes.model";
-
-
 
 const commentsSchema = new Schema(
     {
@@ -19,11 +18,8 @@ const commentsSchema = new Schema(
         },
         clothes:{
             type:Types.ObjectId,
-            required:true,
             ref:Clothes
         }
-
-
     },{
         versionKey:false,
         timestamps:true

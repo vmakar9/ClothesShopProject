@@ -1,5 +1,6 @@
 import {Types} from "mongoose";
 import {IUser} from "./user.types";
+import {IComments} from "./comments.types";
 
 
 export interface IClothes{
@@ -17,4 +18,5 @@ export interface IClothes{
     type:string;
     photos:string[];
     user:IUser | Types.ObjectId;
+    comments:IComments | Types.ObjectId
 }
