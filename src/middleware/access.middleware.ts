@@ -3,6 +3,7 @@ import {ITokenPayload} from "../types/token.types";
 import {Clothes} from "../models/Clothes.model";
 import {ApiError} from "../error/api.error";
 import {User} from "../models/User.model";
+import {Comments} from "../models/Comments.model";
 
 class AccessMiddleware{
     public async getClothesAccess(req:Request,res:Response,next:NextFunction):Promise<void>{
@@ -66,6 +67,23 @@ class AccessMiddleware{
             next();
         }catch (e) {
             next(e);
+        }
+    }
+
+    public async getCommentsAccess(req:Request,res:Response,next:NextFunction):Promise<void>{
+        try {
+            const {commentsId} = req.params;
+            const {_id,role} = req.res.locals.jwtPayload as ITokenPayload;
+
+            const comment = await Comments.findById(commentsId);
+
+            if(comment.user !=  _id && role !=  'admin' ){
+                throw new ApiError("Access denied",401)
+            }
+            res.locals.comment = comment;
+            next()
+        }catch (e) {
+            next(e)
         }
     }
 }

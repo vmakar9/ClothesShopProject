@@ -5,6 +5,7 @@ import {clothesMiddleware} from "../middleware/clothes.middleware";
 import {accessMiddleware} from "../middleware/access.middleware";
 
 import {commentsController} from "../controllers/comments.controller";
+import {commentsMiddleware} from "../middleware/comments.middleware";
 
 const router = Router();
 
@@ -57,11 +58,15 @@ router.post("/:clothesId/comments",
 router.put("/comments/:commentsId",
     authMiddleware.checkAccessToken,
     accessMiddleware.getUserStatus,
+    accessMiddleware.getCommentsAccess,
+    commentsMiddleware.gedIdOrThrow,
     commentsController.update)
 
 router.delete("/comments/:commentsId",
     authMiddleware.checkAccessToken,
     accessMiddleware.getUserStatus,
+    accessMiddleware.getCommentsAccess,
+    commentsMiddleware.gedIdOrThrow,
     commentsController.delete)
 
 router.get("/:clothesId/comments",
