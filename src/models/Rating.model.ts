@@ -16,6 +16,12 @@ const ratingSchema = new Schema({
     },
     user:{
         type:Types.ObjectId,
+        required:true,
+        ref:User
+    },
+    target:{
+        type:Types.ObjectId,
+        require:true,
         ref:User
     }
 },{

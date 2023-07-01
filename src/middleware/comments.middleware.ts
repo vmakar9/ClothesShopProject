@@ -3,7 +3,7 @@ import {Comments} from "../models/Comments.model";
 import {ApiError} from "../error/api.error";
 
 class CommentsMiddleware{
-    public async gedIdOrThrow(req:Request,res:Response,next:NextFunction){
+    public async gedIdOrThrow(req:Request,res:Response,next:NextFunction):Promise<void>{
         try{
             const {commentsId} = req.params;
             const comments = await Comments.findById(commentsId)

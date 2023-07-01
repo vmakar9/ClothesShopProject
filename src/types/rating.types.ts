@@ -7,4 +7,5 @@ export interface IRating{
     rating:number,
     content:string,
     user:IUser | Types.ObjectId;
+    target:IUser | Types.ObjectId;
 }

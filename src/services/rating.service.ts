@@ -14,21 +14,6 @@ class RatingService {
         }
     }
 
-    public async update(ratingId:string,updatedData:IRating){
-        try {
-            await Rating.findByIdAndUpdate(ratingId,updatedData)
-        }catch (e) {
-            throw new ApiError(e.message,e.status)
-        }
-    }
-
-    public async delete(ratingId:string){
-        try {
-            await Rating.deleteOne({_id:ratingId})
-        }catch (e) {
-            throw new ApiError(e.message,e.status)
-        }
-    }
 }
 
 export const ratingService = new RatingService();

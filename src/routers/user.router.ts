@@ -35,9 +35,9 @@ router.post("/:userId/rating",
     accessMiddleware.getUserStatus,
     ratingController.create)
 
-router.get("/:userId/rating",
+router.get("/:targetId/rating",
     authMiddleware.checkAccessToken,
-    userMiddleware.getByIdOrThrow,
+    ratingMiddleware.getTargetIdOrThrow,
     accessMiddleware.getUserStatus,
     ratingController.getRatingUserById)
 
@@ -49,13 +49,15 @@ router.get("/rating",
 router.put("/rating/:ratingId",
     authMiddleware.checkAccessToken,
     accessMiddleware.getUserStatus,
-    ratingMiddleware.getByIdOrThrow,
+    accessMiddleware.getRatingAccess,
+    ratingMiddleware.getIdOrThrow,
     ratingController.update)
 
 router.delete("/rating/:ratingId",
     authMiddleware.checkAccessToken,
     accessMiddleware.getUserStatus,
-    ratingMiddleware.getByIdOrThrow,
+    accessMiddleware.getRatingAccess,
+    ratingMiddleware.getIdOrThrow,
     ratingController.delete)
 
 export const userRouter = router;
