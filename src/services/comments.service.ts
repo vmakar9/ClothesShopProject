@@ -66,14 +66,9 @@ class CommentsService{
             }
             const photoPathtoDelete = currentPhotos[photoIndex];
 
-            console.log(photoPathtoDelete);
+            await s3Service.deletePhoto(photoPathtoDelete);
 
-            await s3Service.deletePhoto(photoPathtoDelete)
-            console.log(photoPathtoDelete);
-
-            currentPhotos.splice(photoIndex,1)
-
-            console.log(currentPhotos);
+            currentPhotos.splice(photoIndex,1);
 
             return await Comments.findByIdAndUpdate(
                 comments._id,
