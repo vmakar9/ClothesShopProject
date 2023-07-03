@@ -5,9 +5,6 @@ import {v4} from "uuid";
 import {extname} from "node:path"
 import {Types} from "mongoose";
 
-
-
-
 class S3Service{
     constructor(
         private client = new S3Client({
@@ -55,6 +52,19 @@ class S3Service{
         );
         return filePath;
     }
+    public async uploadCommentsPhotos(file: UploadedFile, itemType: string, objectId:Types.ObjectId): Promise<string> {
+        const filePath = this.buildCommentPhotoPath(file.name, itemType, objectId);
+        await this.client.send(
+            new PutObjectCommand({
+                Bucket: configs.AWS_S3_BUCKET_NAME,
+                Key: filePath,
+                Body: file.data,
+                ContentType: file.mimetype,
+                ACL: configs.AWS_S3_ACL,
+            })
+        );
+        return filePath;
+    }
 
 
 
@@ -63,6 +73,10 @@ class S3Service{
     }
 
     private buildPhotoPath(fileName:string,itemType:string,objectId:Types.ObjectId):string{
+        return `${itemType}/${objectId}/${v4()}${extname(fileName)}`
+    }
+
+    private buildCommentPhotoPath(fileName:string,itemType:string,objectId:Types.ObjectId):string{
         return `${itemType}/${objectId}/${v4()}${extname(fileName)}`
     }
 

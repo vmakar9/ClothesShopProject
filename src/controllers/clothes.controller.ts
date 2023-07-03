@@ -84,7 +84,7 @@ class ClothesController{
 
             const updatedClothes = await clothesService.deletePhoto(clothesEntity,photoIndex)
 
-            return res.status(201).json(updatedClothes);
+            return res.status(204).json(updatedClothes);
         }catch (e) {
             next(e)
         }

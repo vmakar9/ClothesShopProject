@@ -70,7 +70,7 @@ class ClothesService{
             return await Clothes.findByIdAndUpdate(
                 clothes._id,
                 {photos:newPhotos},
-                {new:false}
+                {new:true}
             );
 
         }catch (e) {

@@ -7,6 +7,7 @@ export interface IComments{
     _id?:Types.ObjectId;
     title:string;
     description:string;
+    photos:string[];
     user:IUser | Types.ObjectId;
     clothes:IClothes | Types.ObjectId;
 }

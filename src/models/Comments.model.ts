@@ -11,6 +11,9 @@ const commentsSchema = new Schema(
         description: {
             type: String,
         },
+        photos:{
+            type:Array
+        },
         user: {
             type: Types.ObjectId,
             required: true,

@@ -75,6 +75,21 @@ router.get("/:clothesId/comments",
     accessMiddleware.getUserStatus,
     commentsController.getById)
 
+router.put("/comments/photos/:commentsId",
+    authMiddleware.checkAccessToken,
+    accessMiddleware.getUserStatus,
+    accessMiddleware.getCommentsAccess,
+    commentsMiddleware.gedIdOrThrow,
+    commentsController.uploadPhotos)
+
+router.delete("/comments/photos/:commentsId/:index",
+    authMiddleware.checkAccessToken,
+    accessMiddleware.getUserStatus,
+    accessMiddleware.getCommentsAccess,
+    commentsMiddleware.gedIdOrThrow,
+    commentsController.deletePhotos)
+
+
 
 
 export const clothesRouter = router;
