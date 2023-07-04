@@ -6,6 +6,7 @@ import {accessMiddleware} from "../middleware/access.middleware";
 
 import {commentsController} from "../controllers/comments.controller";
 import {commentsMiddleware} from "../middleware/comments.middleware";
+import {fileMiddleware} from "../middleware/file.middleware";
 
 const router = Router();
 
@@ -40,6 +41,7 @@ router.put("/photos/:clothesId",
     clothesMiddleware.getIdOrThrow,
     accessMiddleware.getUserStatus,
     accessMiddleware.getClothesAccess,
+    fileMiddleware.isClothesPhotoValid,
     clothesController.uploadPhotos)
 
 router.delete("/photos/:clothesId/:index",
@@ -80,6 +82,7 @@ router.put("/comments/photos/:commentsId",
     accessMiddleware.getUserStatus,
     accessMiddleware.getCommentsAccess,
     commentsMiddleware.gedIdOrThrow,
+    fileMiddleware.isCommentsPhotoValid,
     commentsController.uploadPhotos)
 
 router.delete("/comments/photos/:commentsId/:index",
