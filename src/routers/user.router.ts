@@ -60,4 +60,5 @@ router.delete("/rating/:ratingId",
     ratingMiddleware.getIdOrThrow,
     ratingController.delete)
 
+
 export const userRouter = router;

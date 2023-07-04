@@ -9,6 +9,7 @@ import {Server,Socket} from "socket.io";
 import http from "http";
 import {messagesRouter} from "./routers/messages.router";
 import {adminRouter} from "./routers/admin.router";
+import {favoriteRouter} from "./routers/favorites.router";
 
 
 const app = express();
@@ -25,6 +26,7 @@ app.use("/users",userRouter);
 app.use("/clothes",clothesRouter)
 app.use("/messages",messagesRouter)
 app.use("/admin",adminRouter)
+app.use("/favorite",favoriteRouter)
 
 io.on('connection',(socket:Socket)=>  {
     console.log("New  socket connected",socket.id);
