@@ -12,9 +12,6 @@ class UserMapper{
         };
     }
 
-    public toManyResponse(users: IUser[]) {
-        return users.map(this.toResponse);
-    }
 }
 
 export const userMapper = new UserMapper();

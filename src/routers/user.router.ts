@@ -9,6 +9,13 @@ import {ratingMiddleware} from "../middleware/rating.middleware";
 
 const router = Router();
 
+
+router.get("/:userId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.getByIdOrThrow,
+    accessMiddleware.getUserStatus,
+    userController.getById)
+
 router.put("/:userId/avatar",
     authMiddleware.checkAccessToken,
     userMiddleware.getByIdOrThrow,

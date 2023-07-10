@@ -48,6 +48,22 @@ class UserController{
         }
    }
 
+    public async getById(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<IUser>> {
+        try {
+            const { user } = res.locals;
+
+            const response = userMapper.toResponse(user);
+
+            return res.json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
+
 
 }
 export const userController = new UserController();
