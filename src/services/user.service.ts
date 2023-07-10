@@ -41,13 +41,6 @@ class UserService{
         }
     }
 
-    public async getById(id: string): Promise<IUser> {
-        try {
-            return User.findById(id);
-        } catch (e) {
-            throw new ApiError(e.message, e.status);
-        }
-    }
 
 
 }
