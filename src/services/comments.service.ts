@@ -16,13 +16,6 @@ class CommentsService{
         }
     }
 
-    // public async getCommentsById(clothesId:string):Promise<IComments>{
-    //     try{
-    //         return await Comments.find({clothes: clothesId});
-    //     }catch (e) {
-    //         throw new ApiError(e.message,e.status);
-    //     }
-    // }
 
     public async update(commentId:string,updatedData:IComments){
         try {
