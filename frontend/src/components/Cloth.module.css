@@ -1,0 +1,29 @@
+.clotheslist{
+    direction: revert;
+}
+.clothes{
+    border: 5px solid black;
+    border-radius: 10px;
+    width: 250px;
+    height: 400px;
+}
+
+.clothesimage{
+    width: 250px;
+    height: 225px;
+}
+
+.clothestitle{
+    font-family: "Agency FB", serif;
+}
+
+.clothessize{
+    font-style: italic;
+    font-family: "Agency FB", serif;
+    border: 1px solid gray;
+    text-align: center;
+    font-size: large;
+}
+.clothesprice{
+    font-family: "Agency FB", serif;
+}

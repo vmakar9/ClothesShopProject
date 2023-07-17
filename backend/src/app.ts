@@ -10,7 +10,7 @@ import http from "http";
 import {messagesRouter} from "./routers/messages.router";
 import {adminRouter} from "./routers/admin.router";
 import {favoriteRouter} from "./routers/favorites.router";
-import cors from "cors"
+
 
 
 const app = express();
@@ -28,7 +28,7 @@ app.use("/clothes",clothesRouter)
 app.use("/messages",messagesRouter)
 app.use("/admin",adminRouter)
 app.use("/favorite",favoriteRouter)
-app.use(cors())
+
 
 io.on('connection',(socket:Socket)=>  {
     console.log("New  socket connected",socket.id);
@@ -43,6 +43,7 @@ io.on('connection',(socket:Socket)=>  {
         console.log('Socket disconnect:',socket.id)
     })
 })
+
 
 app.listen(configs.PORT,()=> {
     mongoose.connect(configs.DB_URL);
