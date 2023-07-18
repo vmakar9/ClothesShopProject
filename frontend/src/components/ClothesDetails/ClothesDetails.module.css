@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.product {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.size, .people, .season, .type, .materials, .availability, .description {
+    color: #555;
+    font-size: 14px;
+}
+
+.photos {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.photos img {
+    width: 200px;
+    height: auto;
+    margin: 0 10px;
+}
+
+.price {
+    font-size: 20px;
+    margin-bottom: 0;
+    color: #ff0000;
+}

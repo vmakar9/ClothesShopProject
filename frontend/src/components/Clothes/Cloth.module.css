@@ -1,0 +1,40 @@
+
+.clotheslist {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.clothes {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease
+}
+
+.clothestitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.clothesimage {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.clothessize {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.clothesprice {
+    font-size: 18px;
+    color: #007bff;
+}

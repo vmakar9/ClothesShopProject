@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {clothesActions} from "../redux/slices/ClothesSlice";
+import {clothesActions} from "../../redux/slices/ClothesSlice";
 import Cloth from "./Cloth";
 
 export default function Clothes(){
