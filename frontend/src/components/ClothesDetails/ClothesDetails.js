@@ -1,20 +1,39 @@
 import {useLocation} from "react-router-dom";
 import css from "./ClothesDetails.module.css"
+import {photoURL} from "../../urls/urls";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {userActions} from "../../redux/slices/UsersSlice";
 
 export default function ClothesDetails(){
 
     const location = useLocation()
 
+    const dispatch = useDispatch()
 
     const {state} = location;
 
-    const {title, description,size,price,season,people,type,photos,materials,availability} = state;
+    const { title, description,size,price,season,people,type,photos,materials,availability,userId} = state;
+
+    useEffect(()=> {
+        dispatch(userActions.getUser(userId))
+    },[dispatch,userId])
+
+    const author = useSelector((state) => {
+        const users = state.users;
+        if (users) {
+            return users.find((user) => user._id ===   userId);
+        }
+        return null; // або можна повернути пустий об'єкт {} замість null, якщо потрібно
+    });
 
 
-    const photourls = "https://clothesshopproject.s3.amazonaws.com";
+
+
+
 
     const allPhotos = photos.map((photo,index)=>  (
-        <img key ={index} src={`${photourls}/${photo}`} alt={`Photo ${index +1}`}/>
+        <img key ={index} src={`${photoURL}/${photo}`} alt={`Photo ${index +1}`}/>
     ));
 
 
@@ -31,5 +50,13 @@ export default function ClothesDetails(){
             <p className={css.description}>{description}</p>
             <h3 className={css.price}>{price}</h3>
         </div>
+        {author && (
+            <div>
+                <h4>Autor:</h4>
+                <p>{author.name}</p>
+                <p>{author.email}</p>
+                {/* Інші дані про користувача */}
+            </div>
+        )}
     </div>)
 }

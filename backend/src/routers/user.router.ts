@@ -11,9 +11,7 @@ const router = Router();
 
 
 router.get("/:userId",
-    authMiddleware.checkAccessToken,
     userMiddleware.getByIdOrThrow,
-    accessMiddleware.getUserStatus,
     userController.getById)
 
 router.put("/:userId/avatar",
@@ -45,9 +43,7 @@ router.post("/:userId/rating",
     ratingController.create)
 
 router.get("/:targetId/rating",
-    authMiddleware.checkAccessToken,
     ratingMiddleware.getTargetIdOrThrow,
-    accessMiddleware.getUserStatus,
     ratingController.getRatingUserById)
 
 router.get("/rating",

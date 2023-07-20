@@ -2,7 +2,7 @@ import {clothesService} from "../../services/clothes.service";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 const initialState={
-    clothes:[]
+    clothes:[],
 }
 
 const getAll = createAsyncThunk(
