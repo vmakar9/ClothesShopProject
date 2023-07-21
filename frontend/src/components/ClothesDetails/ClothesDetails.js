@@ -7,7 +7,7 @@ import {clothesActions} from "../../redux/slices/ClothesSlice";
 
 export default function ClothesDetails(){
 
-    const cloth = useSelector((state) => state.cloth);
+    const {cloth} = useSelector(state => state);
     const dispatch = useDispatch()
 
 
