@@ -9,7 +9,7 @@ export default function Cloth({cloth}){
     const navigate = useNavigate()
 
     return(<div className={css.clotheslist}>
-        <div onClick={()=>  navigate('details',{state:cloth})} className={css.clothes}>
+        <div onClick={()=>  navigate(`${cloth._id}`,{state:{...cloth}})} className={css.clothes}>
             <h3 className={css.clothestitle}>{cloth.title}</h3>
             <img className={css.clothesimage} alt={"clothes image"} src={`${photoURL}/${cloth.photos[0]}`}/>
             <p className={css.clothessize}>{`${cloth.size}`}</p>

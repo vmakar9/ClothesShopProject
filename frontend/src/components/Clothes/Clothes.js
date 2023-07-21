@@ -1,7 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {clothesActions, setPage} from "../../redux/slices/ClothesSlice";
+import {clothesActions} from "../../redux/slices/ClothesSlice";
 import Cloth from "./Cloth";
+
 
 
 export default function Clothes(){
@@ -15,7 +16,6 @@ export default function Clothes(){
         dispatch(clothesActions.getAll())
     },[dispatch])
 
-    const {user} = useSelector(state => state.user)
 
 
 
