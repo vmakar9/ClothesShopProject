@@ -6,10 +6,10 @@ import {userMiddleware} from "../middleware/user.middleware";
 
 const router = Router();
 
-router.get("/users",
-    authMiddleware.checkAccessToken,
-    accessMiddleware.ifUserAdmin,
-    adminController.getAll)
+// router.get("/users",
+//     authMiddleware.checkAccessToken,
+//     accessMiddleware.ifUserAdmin,
+//     adminController.getAll)
 router.post("/banlist/ban/:userId",
     authMiddleware.checkAccessToken,
     userMiddleware.getByIdOrThrow,

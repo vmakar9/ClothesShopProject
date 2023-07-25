@@ -41,6 +41,13 @@ class UserService{
         }
     }
 
+    public async getAllUsers():Promise<IUser[]>{
+        try {
+            return User.find()
+        }catch (e) {
+            throw new ApiError(e.message,e.status)
+        }
+    }
 
 
 }

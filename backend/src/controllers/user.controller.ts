@@ -6,6 +6,7 @@ import {userMapper} from "../mapper/user.mapper";
 import {User} from "../models/User.model";
 
 
+
 class UserController{
     public async uploadAvatar(req:Request,res:Response,next:NextFunction):Promise<Response<IUser>>{
       try {
@@ -60,6 +61,15 @@ class UserController{
 
             return res.json(response);
         } catch (e) {
+            next(e);
+        }
+    }
+
+    public async getAll(req:Request,res:Response,next:NextFunction):Promise<Response<IUser[]>>{
+        try {
+            const users = await userService.getAllUsers();
+            return res.status(200).json(users)
+        }catch (e) {
             next(e);
         }
     }

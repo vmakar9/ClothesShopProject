@@ -9,6 +9,9 @@ import {ratingMiddleware} from "../middleware/rating.middleware";
 
 const router = Router();
 
+router.get("/",
+    userController.getAll)
+
 
 router.get("/:userId",
     userMiddleware.getByIdOrThrow,
